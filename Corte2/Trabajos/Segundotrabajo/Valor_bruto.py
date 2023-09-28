@@ -57,8 +57,11 @@ alimentos = {
     "Gastos de caferería": 0,
     "Comidas rapidas frías": 0,
 }
+
+
 # Función para calcular el valor bruto y el IVA de un producto dado
 def calcular_valor_bruto_y_iva(nombre_producto, valor_neto, alimentos):
+    nombre_producto = nombre_producto.capitalize()  # Convertir el nombre a mayúsculas iniciales para buscar de manera insensible a mayúsculas y minúsculas
     if nombre_producto in alimentos:
         iva = alimentos[nombre_producto]
         valor_base = valor_neto / (1 + iva / 100)
@@ -66,19 +69,26 @@ def calcular_valor_bruto_y_iva(nombre_producto, valor_neto, alimentos):
         return valor_base, valor_iva
     else:
         return None
+
 # Programa principal
 while True:
     nombre_producto = input("Ingrese el nombre del producto (o 'salir' para terminar):\n ")
     if nombre_producto.lower() == "salir":
         break
 
-    if nombre_producto in alimentos:
-        valor_neto = float(input("Ingrese el valor neto del producto: "))
-        valor_base, valor_iva = calcular_valor_bruto_y_iva(nombre_producto, valor_neto, alimentos)
-        if valor_base is not None:
+    valor_neto = input("Ingrese el valor neto del producto: ")
+    
+    try:
+        valor_neto = float(valor_neto)
+        resultado = calcular_valor_bruto_y_iva(nombre_producto, valor_neto, alimentos)
+        
+        if resultado is not None:
+            valor_base, valor_iva = resultado
             print(f"Valor Base: {valor_base:.2f}")
             print(f"Valor del IVA: {valor_iva:.2f}")
         else:
             print("Producto no encontrado en la lista.")
-    else:
-        print("Producto no encontrado en la lista.")
+    
+    except ValueError:
+        print("Error: Ingrese un valor neto válido.")
+
