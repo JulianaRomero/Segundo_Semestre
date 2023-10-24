@@ -33,6 +33,12 @@ class Estudiantes():
         return self.__notas
 
 def main():
+    usuario=Estudiantes()
+    usuario.setNombre("Juliana")
+    usuario.setCodigo("Juliana")
+    usuario.setMateria("Juliana")
+    usuario.setCarrera("Juliana")
+    usuario.setNotas("Juliana")
     pass
 
 if __name__=="__main__":
